@@ -17,14 +17,15 @@ echo "\
 127.0.0.1   localhost \
 ::1         localhost \
 127.0.1.1   ${NEW_HOSTNAME}.localdomain ${NEW_HOSTNAME} \
-"
+" >> /etc/hosts
 
 # Users and passwords
 echo "Enter a password for the root user:"
 passwd
 while true
 do
-    echo "Enter a username to create a user (leave blank for no user):" read -r USERNAME
+    echo "Enter a username to create a user (leave blank for no user):"
+    read -r USERNAME
 
     if [ "$USERNAME" = "" ]
     then
@@ -72,5 +73,8 @@ else
     echo "Non-UEFI not supported at the moment."
     exit 1
 fi
+
+# Install additional packages
+pacman -Sy $ADDITIONAL_PACKAGES
 
 exit

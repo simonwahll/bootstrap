@@ -12,6 +12,7 @@ KEYMAP="sv-latin1"
 NEW_HOSTNAME="Pluto"
 
 BASE_PACKAGES="base base-devel linux linux-firmware"
+ADDITIONAL_PACKAGES="networkmanager"
 
 # Make sure we are connected to the internet
 if [ "$(ping -c 1 archlinux.org)" -ne 1 ]
@@ -31,7 +32,7 @@ genfstab -U "$INSTALL_PATH" >> "${INSTALL_PATH}/etc/fstab"
 cp ./chroot.sh "$INSTALL_PATH"
 
 # Setup system in chroot
-arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIRECTORY="$ESP_DIRECTORY" ROOT_PARTITION="$ROOT_PARTITION" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" NEW_HOSTNAME="$NEW_HOSTNAME" /chroot.sh
+arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIRECTORY="$ESP_DIRECTORY" ROOT_PARTITION="$ROOT_PARTITION" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" NEW_HOSTNAME="$NEW_HOSTNAME" ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES" /chroot.sh
 
 # Unmount
 umount -R "$INSTALL_PATH"
