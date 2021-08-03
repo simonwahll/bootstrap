@@ -4,7 +4,7 @@ set -e
 
 # Timezone
 ln -sf "/usr/share/zoneinfo/${TIME_ZONE}" /etc/localtime
-hwclock -systohc
+hwclock --systohc
 
 # Localization
 echo "LANG=${LOCALE}" > /ect/locale.conf
