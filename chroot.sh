@@ -7,7 +7,7 @@ ln -sf "/usr/share/zoneinfo/${TIME_ZONE}" /etc/localtime
 hwclock --systohc
 
 # Localization
-echo "LANG=${LOCALE}" > /ect/locale.conf
+echo "LANG=${LOCALE}" > /etc/locale.conf
 locale-gen
 echo "KEYMAP=${KEYMAP}" > /etc/vconsole.conf
 
