@@ -46,9 +46,6 @@ do
     passwd "$USERNAME"
 done
 
-# Enable network manager
-systemctl enable networkmanager
-
 # Install bootloader
 if [ "$UEFI" -eq 1 ]
 then
@@ -77,4 +74,5 @@ fi
 # Install additional packages
 pacman -Sy $ADDITIONAL_PACKAGES
 
-exit
+# Enable network manager
+systemctl enable networkmanager
