@@ -75,4 +75,4 @@ fi
 pacman -Sy $ADDITIONAL_PACKAGES
 
 # Enable network manager
-systemctl enable networkmanager
+systemctl enable NetworkManager
