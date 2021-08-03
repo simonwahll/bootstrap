@@ -47,7 +47,7 @@ do
 done
 
 # Install bootloader
-if [ "$UEFI" -eq 1 ]
+if [ "$UEFI" = true ]
 then
     bootctl install
     

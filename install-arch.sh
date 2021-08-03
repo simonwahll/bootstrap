@@ -3,7 +3,7 @@
 set -e
 
 INSTALL_PATH="/mnt"
-UEFI=1
+UEFI=false
 ESP_DIRECTORY="/boot"
 ROOT_PARTITION="/dev/nvme0n1p3"
 TIME_ZONE="Europe/Stockholm"
@@ -13,6 +13,12 @@ NEW_HOSTNAME="Pluto"
 
 BASE_PACKAGES="base base-devel linux linux-firmware"
 ADDITIONAL_PACKAGES="networkmanager"
+
+# Check if we are booted in UEFI or BIOS mode
+if [ -d "/sys/firmware/efi/efivars" ]
+then
+    UEFI=true
+fi
 
 # Make sure we are connected to the internet
 if [ "$(ping -c 1 archlinux.org)" -ne 1 ]
