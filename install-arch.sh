@@ -27,8 +27,11 @@ pacstrap "$INSTALL_PATH" $BASE_PACKAGES
 # Generate /etc/fstab
 genfstab -U "$INSTALL_PATH" >> "${INSTALL_PATH}/etc/fstab"
 
+# Copy chroot script
+cp ./chroot.sh "${INSTALL_PATH}/tmp"
+
 # Setup system in chroot
-arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIRECTORY="$ESP_DIRECTORY" ROOT_PARTITION="$ROOT_PARTITION" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" NEW_HOSTNAME="$NEW_HOSTNAME" ./chroot.sh
+arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIRECTORY="$ESP_DIRECTORY" ROOT_PARTITION="$ROOT_PARTITION" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" NEW_HOSTNAME="$NEW_HOSTNAME" /tmp/chroot.sh
 
 # Unmount
 umount -R "$INSTALL_PATH"
