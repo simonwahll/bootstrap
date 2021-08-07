@@ -67,8 +67,9 @@ options root=$(blkid "$ROOT_PARTITION" | sed s/\"//g | cut -d' ' -f2) rw\
   
     bootctl update
 else
-    echo "Non-UEFI not supported at the moment."
-    exit 1
+    pacman -Sy grub
+    grub-install --target=i386-pc "$DEVICE"
+    grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 # Install additional packages
