@@ -14,11 +14,14 @@ NEW_HOSTNAME="Pluto"
 
 BASE_PACKAGES="base base-devel linux linux-firmware"
 ADDITIONAL_PACKAGES="networkmanager"
+SERVICES="NetworkManager"
 
 # Check if we are booted in UEFI or BIOS mode
 if [ -d "/sys/firmware/efi/efivars" ]
 then
     UEFI=true
+else
+    ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES grub os-prober"
 fi
 
 # Make sure we are connected to the internet
@@ -30,7 +33,7 @@ then
 fi
 
 # Install the base system
-pacstrap "$INSTALL_PATH" $BASE_PACKAGES
+pacstrap "$INSTALL_PATH" $BASE_PACKAGES $ADDITIONAL_PACKAGES
 
 # Generate /etc/fstab
 genfstab -U "$INSTALL_PATH" >> "${INSTALL_PATH}/etc/fstab"
@@ -39,7 +42,7 @@ genfstab -U "$INSTALL_PATH" >> "${INSTALL_PATH}/etc/fstab"
 cp ./chroot.sh "$INSTALL_PATH"
 
 # Setup system in chroot
-arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIRECTORY="$ESP_DIRECTORY" ROOT_PARTITION="$ROOT_PARTITION" DEVICE="$DEVICE" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" NEW_HOSTNAME="$NEW_HOSTNAME" ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES" /chroot.sh
+arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIRECTORY="$ESP_DIRECTORY" ROOT_PARTITION="$ROOT_PARTITION" DEVICE="$DEVICE" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" NEW_HOSTNAME="$NEW_HOSTNAME" ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES" SERVICES="$SERVICES" /chroot.sh
 
 # Unmount
 umount -R "$INSTALL_PATH"

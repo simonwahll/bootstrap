@@ -67,13 +67,12 @@ options root=$(blkid "$ROOT_PARTITION" | sed s/\"//g | cut -d' ' -f2) rw\
   
     bootctl update
 else
-    pacman -Sy grub
     grub-install --target=i386-pc "$DEVICE"
     grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
-# Install additional packages
-pacman -Sy $ADDITIONAL_PACKAGES
-
-# Enable network manager
-systemctl enable NetworkManager
+# Enable services
+for SERVICE in $SERVICES
+do
+    systemctl enable $SERVICE
+done
