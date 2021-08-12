@@ -12,11 +12,11 @@ locale-gen
 echo "KEYMAP=${KEYMAP}" > /etc/vconsole.conf
 
 # Hostname
-echo "$NEW_HOSTNAME" > /etc/hostname
+echo "$_HOSTNAME" > /etc/hostname
 echo "\
 127.0.0.1   localhost \
 ::1         localhost \
-127.0.1.1   ${NEW_HOSTNAME}.localdomain ${NEW_HOSTNAME} \
+127.0.1.1   ${_HOSTNAME}.localdomain ${_HOSTNAME} \
 " >> /etc/hosts
 
 # Users and passwords
@@ -56,23 +56,24 @@ default arch.conf\
 timeout 3\
 console-mode max\
 editor no\
-" >> "${ESP_DIRECTORY}/loader/loader.conf"
+" >> "${ESP_DIR}/loader/loader.conf"
 
     echo "\
 title Arch Linux\
 linux /vmlinuz-linux\
 initrd /initramfs-linux.img\
-options root=$(blkid "$ROOT_PARTITION" | sed s/\"//g | cut -d' ' -f2) rw\
+options root=$(blkid "$ROOT_DIR" | sed s/\"//g | cut -d' ' -f2) rw\
 "
   
     bootctl update
 else
-    grub-install --target=i386-pc "$DEVICE"
+    grub-install --target=i386-pc "$DISK"
     grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 # Enable services
+# shellcheck disable=SC2153
 for SERVICE in $SERVICES
 do
-    systemctl enable $SERVICE
+    systemctl enable "$SERVICE"
 done
