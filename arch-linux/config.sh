@@ -28,7 +28,7 @@ _HOSTNAME="Pluto"
 BASE_PKGS="base base-devel linux linux-firmware"
 
 # Additional packages to be installed.
-ADDITIONAL_PKGS="networkmanager"
+ADDITIONAL_PKGS="networkmanager sof-firmware"
 
 # Services to enable with systemctl.
 SERVICES="NetworkManager"
