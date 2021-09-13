@@ -62,7 +62,7 @@ editor no
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
-options root=$(blkid "$ROOT_DIR" | sed s/\"//g | cut -d' ' -f2) rw
+options root=$(blkid "$ROOT_PART" | sed s/\"//g | cut -d' ' -f2) rw
 " > "${ESP_DIR}/loader/entries/arch.conf"
 
     bootctl update
