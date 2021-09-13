@@ -11,7 +11,7 @@ if [ -d "/sys/firmware/efi/efivars" ]
 then
     UEFI=true
 else
-    ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES grub os-prober"
+    ADDITIONAL_PKGS="$ADDITIONAL_PKGS grub os-prober"
 fi
 
 # Make sure we are connected to the internet
@@ -24,7 +24,7 @@ fi
 
 # Install the base system
 # shellcheck disable=SC2086
-pacstrap "$ROOT_DIR" $BASE_PACKAGES $ADDITIONAL_PACKAGES
+pacstrap "$ROOT_DIR" $BASE_PACKAGES $ADDITIONAL_PKGS
 
 # Generate /etc/fstab
 genfstab -U "$ROOT_DIR" >> "${ROOT_DIR}/etc/fstab"
@@ -33,7 +33,7 @@ genfstab -U "$ROOT_DIR" >> "${ROOT_DIR}/etc/fstab"
 cp ./chroot.sh "$ROOT_DIR"
 
 # Setup system in chroot
-arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIR="$ESP_DIR" ROOT_PART="$ROOT_PART" DISK="$DISK" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" _HOSTNAME="$_HOSTNAME" ADDITIONAL_PACKAGES="$ADDITIONAL_PACKAGES" SERVICES="$SERVICES" /chroot.sh
+arch-chroot /mnt /usr/bin/env -i UEFI="$UEFI" ESP_DIR="$ESP_DIR" ROOT_PART="$ROOT_PART" DISK="$DISK" TIME_ZONE="$TIME_ZONE" LOCALE="$LOCALE" KEYMAP="$KEYMAP" _HOSTNAME="$_HOSTNAME" ADDITIONAL_PKGS="$ADDITIONAL_PKGS" SERVICES="$SERVICES" /chroot.sh
 
 # Unmount
 umount -R "$ROOT_DIR"

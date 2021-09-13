@@ -50,7 +50,7 @@ done
 if [ "$UEFI" = true ]
 then
     bootctl install
-    
+
     echo "\
 default arch.conf\
 timeout 3\
@@ -63,13 +63,16 @@ title Arch Linux\
 linux /vmlinuz-linux\
 initrd /initramfs-linux.img\
 options root=$(blkid "$ROOT_DIR" | sed s/\"//g | cut -d' ' -f2) rw\
-"
-  
+" >> "${ESP_DIR}/loader/entries/arch.conf"
+
     bootctl update
 else
     grub-install --target=i386-pc "$DISK"
     grub-mkconfig -o /boot/grub/grub.cfg
 fi
+
+# Install additional packages
+pacman -S --noconfirm $ADDITIONAL_PKGS
 
 # Enable services
 # shellcheck disable=SC2153
