@@ -14,9 +14,9 @@ echo "KEYMAP=${KEYMAP}" > /etc/vconsole.conf
 # Hostname
 echo "$_HOSTNAME" > /etc/hostname
 echo "\
-127.0.0.1   localhost \
-::1         localhost \
-127.0.1.1   ${_HOSTNAME}.localdomain ${_HOSTNAME} \
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   ${_HOSTNAME}.localdomain ${_HOSTNAME}
 " >> /etc/hosts
 
 # Users and passwords
@@ -52,17 +52,17 @@ then
     bootctl install
 
     echo "\
-default arch.conf\
-timeout 3\
-console-mode max\
-editor no\
+default arch.conf
+timeout 3
+console-mode max
+editor no
 " >> "${ESP_DIR}/loader/loader.conf"
 
     echo "\
-title Arch Linux\
-linux /vmlinuz-linux\
-initrd /initramfs-linux.img\
-options root=$(blkid "$ROOT_DIR" | sed s/\"//g | cut -d' ' -f2) rw\
+title Arch Linux
+linux /vmlinuz-linux
+initrd /initramfs-linux.img
+options root=$(blkid "$ROOT_DIR" | sed s/\"//g | cut -d' ' -f2) rw
 " >> "${ESP_DIR}/loader/entries/arch.conf"
 
     bootctl update
