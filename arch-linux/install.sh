@@ -24,7 +24,7 @@ fi
 
 # Install the base system
 # shellcheck disable=SC2086
-pacstrap "$ROOT_DIR" $BASE_PACKAGES $ADDITIONAL_PKGS
+pacstrap "$ROOT_DIR" $BASE_PKGS
 
 # Generate /etc/fstab
 genfstab -U "$ROOT_DIR" >> "${ROOT_DIR}/etc/fstab"
