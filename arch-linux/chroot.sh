@@ -56,14 +56,14 @@ default arch.conf
 timeout 3
 console-mode max
 editor no
-" >> "${ESP_DIR}/loader/loader.conf"
+" > "${ESP_DIR}/loader/loader.conf"
 
     echo "\
 title Arch Linux
 linux /vmlinuz-linux
 initrd /initramfs-linux.img
 options root=$(blkid "$ROOT_DIR" | sed s/\"//g | cut -d' ' -f2) rw
-" >> "${ESP_DIR}/loader/entries/arch.conf"
+" > "${ESP_DIR}/loader/entries/arch.conf"
 
     bootctl update
 else
